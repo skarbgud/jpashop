@@ -30,6 +30,7 @@ public class Order {
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
+    // order_date 로 바뀐다.
     private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
