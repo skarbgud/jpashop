@@ -2,16 +2,19 @@ package japbook.jpashop.service;
 
 import japbook.jpashop.domain.Member;
 import japbook.jpashop.repository.MemberRepository;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
+@RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional // 스프링에서 기본적으로 Transactional 은 Rollback 한다.
 public class MemberServiceTest {
@@ -41,7 +44,7 @@ public class MemberServiceTest {
         assertEquals(member, memberRepository.findOne(saveId));
     }
 
-    @Test
+    @Test(expected = IllegalStateException.class)
     public void 중복_회원_예외() throws Exception {
         //given
         Member member1 = new Member();
@@ -52,11 +55,12 @@ public class MemberServiceTest {
 
         //when
         memberService.join(member1);
-        try {
-            memberService.join(member2); // 예외가 발생해야 한다!!!
-        } catch (IllegalStateException e) {
-            return;
-        }
+        memberService.join(member2); // 예외가 발생해야 한다!!!
+//        try {
+//            memberService.join(member2); // 예외가 발생해야 한다!!!
+//        } catch (IllegalStateException e) {
+//            return;
+//        }
 
         //then
         fail("예외가 발생해야 한다.");
