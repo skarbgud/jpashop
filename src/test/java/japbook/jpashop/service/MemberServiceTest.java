@@ -41,7 +41,7 @@ public class MemberServiceTest {
         assertEquals(member, memberRepository.findOne(saveId));
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void 중복_회원_예외() throws Exception {
         //given
         Member member1 = new Member();
@@ -52,12 +52,11 @@ public class MemberServiceTest {
 
         //when
         memberService.join(member1);
-        memberService.join(member2); // 예외가 발생해야 한다!!!
-//        try {
-//            memberService.join(member2); // 예외가 발생해야 한다!!!
-//        } catch (IllegalStateException e) {
-//            return;
-//        }
+        try {
+            memberService.join(member2); // 예외가 발생해야 한다!!!
+        } catch (IllegalStateException e) {
+            return;
+        }
 
         //then
         fail("예외가 발생해야 한다.");
