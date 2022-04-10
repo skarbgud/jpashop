@@ -3,6 +3,7 @@ package japbook.jpashop.domain.item;
 import japbook.jpashop.domain.Category;
 import japbook.jpashop.exception.NotEnoughStockException;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype")
-@Getter // Setter를 통한 계산이 아니라 비즈니스 로직을 통해 수량을 수정하는것이 객체지향적이다.
+@Getter @Setter // Setter를 통한 계산이 아니라 비즈니스 로직을 통해 수량을 수정하는것이 객체지향적이다.
 public abstract class Item {
 
     @Id
