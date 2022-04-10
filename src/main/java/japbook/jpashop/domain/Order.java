@@ -1,6 +1,8 @@
 package japbook.jpashop.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -14,6 +16,7 @@ import static javax.persistence.FetchType.*;
 @Table(name = "orders")
 @Getter
 @Setter
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
     @Id
