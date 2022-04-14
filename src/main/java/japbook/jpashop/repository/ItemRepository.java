@@ -18,7 +18,9 @@ public class ItemRepository {
             em.persist(item);
         } else {
             // merge는 업데이트랑 비슷한것
-            em.merge(item);
+            // merge는 파라미터로 넘어온 준영속 엔티티의 식별자 값으로 엔티티에서 조회한 후
+            // item과 mergeItem은 다르다!(*item은 기존에 아직 트랜잭션으로 처리되기전 데이터 mergeItem은 데이터가 반영된 후 데이터
+            Item mergeItem = em.merge(item);
         }
     }
 

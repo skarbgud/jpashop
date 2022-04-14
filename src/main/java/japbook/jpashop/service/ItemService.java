@@ -20,6 +20,18 @@ public class ItemService {
         itemRepository.save(item);
     }
 
+    @Transactional
+    public void updateItem(Long itemId, String name, int price, int stockQuantity) {
+        // findItem은 영속상태
+        Item findItem = itemRepository.findOne(itemId);
+//        findItem.change(param.getName(), param.getPrice(), param.getStockQuantity()); // 메소드화 하자
+        findItem.setPrice(price);  //==> dirty checking
+        findItem.setName(name);  //==> dirty checking
+        findItem.setStockQuantity(stockQuantity);  //==> dirty checking
+        // 더이상 처리할 필요없이 @Transactional을 통해 flush를 하게 된다.
+//        return findItem;
+    }
+
     public List<Item> findItems() {
         return itemRepository.findAll();
     }

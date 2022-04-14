@@ -62,17 +62,20 @@ public class ItemController {
     }
 
     @PostMapping("/items/{itemId}/edit")
-    public String updateItem(@ModelAttribute("form") BookForm form) {
+    public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") BookForm form) {
+        /*
+        // 준영속성 상태
         Book book = new Book();
 
-        book.setId(form.getId());
+        book.setId(form.getId()); // jpa가 식별할 수 있는 id를 가지고 있기때문에 new로 생성해서 새로운 객체를 만들기는 했지만 setId를 하는 순간 jpa기 식별하는 준영속 엔티티로 관리되어 사용된다.
         book.setName(form.getName());
-        book.setPrice(form.getPrice());
+//        book.setPrice(form.getPrice()); // 만약 화면에서 price의 값이 세팅이 안되어있다면 null값이므로 merge를 하면 null값으로 세팅이 된다.(merge는 갈아치우기인데 그렇게되면 원래있던 필드의 값이 사라질 수 있다.) * 앵간하면 변경감지로 한땀한땀하자!
         book.setStockQuantity(form.getStockQuantity());
         book.setAuthor(form.getAuthor());
         book.setIsbn(form.getIsbn());
+        */
 
-        itemService.saveItem(book);
+        itemService.updateItem(itemId,form.getName(), form.getPrice(), form.getStockQuantity());
         return "redirect:/items";
     }
 }
